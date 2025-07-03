@@ -137,12 +137,11 @@ def inverse(mat):
 
 A = np.loadtxt("rank_data.txt")
 B = np.loadtxt("det_data.txt")
-C = np.loadtxt(r"inv_data.txt")
-matrix_copy = A.copy()
-demat = B.copy()
-inmat = C.copy()
-r = rank(matrix_copy)
-d = det(demat)
-inve = inverse(inmat)
-print("matrix rank =", r)
-print("determinant =", d)   
+C = np.loadtxt("inv_data.txt")
+
+rank = rank(A)
+determinant = det(B)
+inversion = inverse(C)
+
+print("matrix rank =", rank)
+print("determinant =", determinant)   
