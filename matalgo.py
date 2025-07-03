@@ -46,16 +46,16 @@ def rank(mat):
         swap_rows(mat, row, pivot_row_index)
         mat[row, :] /= mat[row, j]
 
-        factors = mat[row+1:, j:j+1]
-        mat[row+1:, :] -= factors * mat[row:row+1, :]
+        if row + 1 < m:
+            factors = mat[row+1:, j:j+1]
+            mat[row+1:, :] -= factors * mat[row:row+1, :]
 
         row += 1
+
     elapsed = time.perf_counter() - start
     print(f"rank() finished in {elapsed:.6f} s")
 
     return row
-
-
 
 
 def det(A):
@@ -72,7 +72,7 @@ def det(A):
 
         abs_col = []
         for i in range(k, n):
-            abs_col.append(abs(U[i, k]))
+            abs_col.append(my_abs(U[i, k]))
 
         pivot_off = 0
         pivot_val = abs_col[0]
@@ -84,7 +84,7 @@ def det(A):
                 pivot_val = v
         p = k + pivot_off
 
-        if U[p, k] == 0.0:
+        if abs(U[p, k]) < EPSILON:
             return 0.0
 
         if p != k:
@@ -116,12 +116,15 @@ def inverse(mat):
 
     for k in range(n):
         p = pivot_index(aug, k, k)
+
         if my_abs(aug[p, k]) < EPSILON:
             raise ValueError("Matrix is singular")
+        
         swap_rows(aug, k, p)
         aug[k, :] /= aug[k, k]
         factors = aug[k + 1:, k:k + 1]
         aug[k + 1:, :] -= factors * aug[k:k + 1, :]
+
     for k in range(n - 1, -1, -1):
         factors = aug[:k, k:k + 1]
         aug[:k, :] -= factors * aug[k:k + 1, :]
@@ -132,7 +135,6 @@ def inverse(mat):
     return aug[:, n:]
 
 
-# dd.txt
 A = np.loadtxt(r"C:\Users\micha\Desktop\matrixdata\rank_data.txt")
 B = np.loadtxt(r"C:\Users\micha\Desktop\matrixdata\det_data.txt")
 C = np.loadtxt(r"C:\Users\micha\Desktop\matrixdata\inv_data.txt")
