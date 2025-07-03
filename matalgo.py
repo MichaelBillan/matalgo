@@ -135,9 +135,9 @@ def inverse(mat):
     return aug[:, n:]
 
 
-A = np.loadtxt(r"C:\Users\micha\Desktop\matrixdata\rank_data.txt")
-B = np.loadtxt(r"C:\Users\micha\Desktop\matrixdata\det_data.txt")
-C = np.loadtxt(r"C:\Users\micha\Desktop\matrixdata\inv_data.txt")
+A = np.loadtxt("rank_data.txt")
+B = np.loadtxt("det_data.txt")
+C = np.loadtxt(r"inv_data.txt")
 matrix_copy = A.copy()
 demat = B.copy()
 inmat = C.copy()
